@@ -1,0 +1,59 @@
+<div id="container" ng-controller="MainCtrl" class="container">
+  <ol class="breadcrumb">
+      <li ng-repeat="breadcrumb in breadcrumbs.get() track by breadcrumb.path" ng-class="{ active: $last }">
+      <a ng-if="!$last" ng-href="#{{ breadcrumb.path }}" ng-bind="breadcrumb.label" class="margin-right-xs"></a>
+      <span ng-if="$last" ng-bind="breadcrumb.label"></span>
+    </li>
+  </ol>
+
+  <div class="input-group">
+    <input  class="form-control" placeholder="Buscar por..." ng-model="query">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="search()">Buscar</button>
+      </span>
+  </div>
+
+  <div id="content" >
+    <div class="row panelHome">
+      <div class="col-xs-4 orderList">
+        <select ng-model="orderItems" class="form-control">
+          <option value="">Ordenar Por:</option>
+          <option value="meta['dc.title']">Nombre</option>
+          <option value="meta['dc.date.issued']">Fecha</option>
+        </select>
+      </div>
+
+      <div class="col-xs-4">
+            <label for="search">Recursos por página:</label>
+            <input type="number" min="6" max="100" class="form-control" ng-model="pageSize">
+      </div>
+      
+      <h3 style="clear:both;padding:30px 0">Recursos Conecta-Te</h3>
+      <h4 style="clear:both" ng-hide="hideTitleCollection">{{collection_name}}</h4>
+
+      <div class="row">
+      <div class="col-sm-6 col-md-4" dir-paginate = "item in items | filter:query | orderBy:orderItems | itemsPerPage: pageSize" current-page="currentPage" total-items="totalItems">
+        <div class="thumbnail">
+          <img ng-if="!angular.isDefined(item.meta['cem.technical.thumbails'])" ng-src="images/backgrounds/thumbnail_not_found.png" alt="..." width="180">
+          <img ng-if="angular.isDefined(item.meta['cem.technical.thumbails'])" ng-src="{{item.meta['cem.technical.thumbails']}}" alt="..." width="150">
+          <div class="caption">
+            <p><strong>{{item.meta['dc.title']}}</strong></p>
+            <p><small><strong>Tipo de recurso: </strong>{{item.meta['dc.type']}} </small></p>
+            <p><small><strong>Autor: </strong>{{item.meta['dc.contributor.author']}} </small></p>
+            <p><small><strong>Fecha: </strong>{{item.meta['dc.date.issued']}} </small></p>
+            <p><small><strong>Palabras Claves: </strong>{{item.meta['dc.subject.keyword']}} </small></p>
+            <p><small><strong>Estado: </strong>{{item.state}} </small></p>
+          </div>
+          <p><a ng-href="#/resources/{{item.id}}" ng-click="" class="btn btn-primary" role="button">Ver</a>
+        </div>
+      </div>
+    </div>
+      <div class="text-center">
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChanged(newPageNumber)" ></dir-pagination-controls>
+      </div>
+
+    </div>
+  </div>
+
+  <div communities></div>
+</div>

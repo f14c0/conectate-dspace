@@ -1,0 +1,15 @@
+<div class="panel panel-info rightPanel">
+  <div class="panel-heading"><h4>Comunidades</h4></div>
+  <div class="panel-body">
+    <abn-tree tree-data="dataTree" tree-control="my_tree" on-select="select_community(branch)" expand-level="2" ></abn-tree>
+  </div>
+  
+</div>
+
+<div class="panel panel-info rightPanel" ng-hide="hideCollections">
+  <div class="panel-heading"><h4>{{community_name}}</h4></div>
+  <div class="panel-body">
+    <abn-tree tree-data="dataTreeCollection" tree-control="my_tree_col" on-select="select_collection(branch)" expand-level="2" ></abn-tree>
+  </div>
+  
+</div>
