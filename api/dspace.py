@@ -21,6 +21,7 @@ class DSpace:
         :param password: user password
         :return: http response
         """
+        #request setup
         payload = '{"email":"'+user  +'", "password":"'+password+'"}'
         headers = {'Content-Type':'application/json'}
         url = self.rest_path + "/login"
@@ -31,7 +32,15 @@ class DSpace:
         return response
 
     def logout(self):
-        return None
+        """
+        Makes a request to rest API in order to logout an user
+        :return: http response
+        """
+        #request setup
+        headers = {'Content-Type':'application/json' , 'rest-dspace-token': self.api_key }
+        url =  self .rest_path + "/logout"
+        response =  requests.post(url,headers = headers )
+        return response
 
 
 
