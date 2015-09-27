@@ -27,22 +27,22 @@ class TestDSpace(TestCase):
       response = dspace.login("api_user@example.com","not_my_password")
       self.assertEqual(expected_response_code,response.status_code, "Login error test fails")
 
+
   def test_logout_previous_login(self):
       """
       Tests  Logout previous login
-      :return:
       """
-      dspace = DSpace("http://45.55.192.223:8443/rest")
       success_response_code = httplib.OK #200
+      dspace = DSpace("http://45.55.192.223:8443/rest")
       #login before test log out
       dspace.login("api_user@example.com","passw0rd_api")
       response = dspace.logout()
       self.assertEqual(response.status_code,success_response_code,"Logout test fails")
 
+
   def test_logout_no_login(self):
       """
       Tests Logout no previous login
-      :return:
       """
       dspace = DSpace("http://45.55.192.223:8443/rest")
       bad_request_code = httplib.BAD_REQUEST #400
