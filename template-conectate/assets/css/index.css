@@ -1,0 +1,45 @@
+.body_class
+{
+	position: relative;
+	background: url('../img/sports_img.png') 50% 0 no-repeat fixed;
+	margin-top: 20px;
+}
+
+.container
+{
+	background: white;
+}
+
+.gray_container
+{
+	display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.alert-green {
+    color: #FFFFFF;
+    background-color: #274C3C;
+    border-color: #274C3C;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 6px 6px 0px 0px;
+}
+
+.btn-green{
+	color: #fff;
+    background-color: #33987F;
+    border-color: #33987F;
+}
+.recurso_line{
+	border-bottom: 1px solid #f5f5f5;
+	margin-bottom: 10px;
+}
