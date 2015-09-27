@@ -1,5 +1,6 @@
 __author__ = 'JULIAN'
 import requests
+import httplib
 
 class DSpace:
     """
@@ -11,6 +12,7 @@ class DSpace:
         :return:
         """
         self.rest_path = rest_path
+        self.api_key = ""
 
     def login(self,user, password):
         """
@@ -23,7 +25,14 @@ class DSpace:
         headers = {'Content-Type':'application/json'}
         url = self.rest_path + "/login"
         response = requests.post(url,data= payload ,headers = headers)
+        #200
+        if response.status_code == httplib.OK:
+            self.api_key = response.text
         return response
+
+    def logout(self):
+        return None
+
 
 
 
