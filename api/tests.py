@@ -58,8 +58,18 @@ class TestDSpace(TestCase):
       """
       Test Retrieving all items
       """
-      items = Item.get_all()
+      dspace= self.dspace
+      items = Item.get_all(dspace)
       self.assertGreater(len(items),0)
+
+  def test_get_item(self):
+      """
+      Test Retrieving an item by Id
+      """
+      dspace= self.dspace
+      test_id = 5
+      item = Item.get_item(dspace,test_id)
+      self.assertEqual(item.id,test_id,"Get item by Id Fails")
 
 
 
