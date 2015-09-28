@@ -43,5 +43,40 @@ class DSpace:
         return response
 
 
+class Item :
 
+    """
+    Class Item provide methods for interacting with Items from  DSpace REST API
+    """
+    def __init__(self, **kwargs):
+        ##TODO Item instantiation
+        return
+
+    def get_all(self,**kwargs):
+        """
+        Returns an array of items, gathered from DSpace REST API
+        :param kwargs: filters
+        :return:
+        """
+        #TODO get all items
+        return None
+
+    def get_item(self, id,**kwargs):
+        """
+        Retrieve an Item by Id
+        :param id: item id
+        :param kwargs: item expand options
+        :return:
+        """
+        #TODO get item by Id
+        return None
+
+    def get_item_metadata(self,item_id):
+        """
+        Returns item metadata as a dictionary
+        :param item_id:
+        :return:
+        """
+        #TODO return metadata form item
+        return None
 
