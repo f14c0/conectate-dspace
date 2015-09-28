@@ -1,7 +1,10 @@
 # Create your tests here.
-from django.test import TestCase
-from dspace import DSpace
 import httplib
+
+from django.test import TestCase
+
+from dspace import DSpace,Item
+
 __author__ = 'JULIAN'
 
 
@@ -51,7 +54,12 @@ class TestDSpace(TestCase):
       response = self.dspace.logout()
       self.assertEqual(response.status_code,bad_request_code,"Logout test fails")
 
-  
+  def test_get_all_items(self):
+      """
+      Test Retrieving all items
+      """
+      items = Item.get_all()
+      self.assertGreater(len(items),0)
 
 
 
