@@ -1,6 +1,7 @@
 __author__ = 'JULIAN'
 import requests
 import httplib
+import json
 
 class DSpace:
     """
@@ -48,28 +49,41 @@ class Item :
     """
     Class Item provide methods for interacting with Items from  DSpace REST API
     """
-    def __init__(self, **kwargs):
-        ##TODO Item instantiation
-        return
+    def __init__(self, dict ,**kwargs):
+        self.__dict__ = dict
 
-    def get_all(self,**kwargs):
+
+    @staticmethod
+    def get_all(dspace,**kwargs):
         """
         Returns an array of items, gathered from DSpace REST API
         :param kwargs: filters
         :return:
         """
-        #TODO get all items
-        return None
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/items"
+        response = requests.get(url,headers=headers)
+        items =  json.loads(response.text)
+        return items
 
-    def get_item(self, id,**kwargs):
+    @staticmethod
+    def get_item(dspace, id,**kwargs):
         """
         Retrieve an Item by Id
         :param id: item id
         :param kwargs: item expand options
-        :return:
+        :return: Item
         """
-        #TODO get item by Id
-        return None
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/items"
+        response = requests.get(url,headers=headers)
+        item = None
+        if response.status_code == httplib.OK:
+            item =  Item(json.loads(response.text)[0])
+            print item.id
+        return item
 
     def get_item_metadata(self,item_id):
         """
