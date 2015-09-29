@@ -71,5 +71,11 @@ class TestDSpace(TestCase):
       item = Item.get_item(dspace,test_id)
       self.assertEqual(item.id,test_id,"Get item by Id Fails")
 
-
-
+  def test_get_item_metadata(self):
+      """
+      Test Retrieving an item by Id
+      """
+      dspace= self.dspace
+      test_id = 5
+      metadata = Item.get_item_metadata(dspace,test_id)
+      self.assertGreater(len(metadata),0)
