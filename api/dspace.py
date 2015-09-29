@@ -68,7 +68,7 @@ class Item :
         return items
 
     @staticmethod
-    def get_item(dspace, id,**kwargs):
+    def get_item(dspace, item_id,**kwargs):
         """
         Retrieve an Item by Id
         :param id: item id
@@ -77,20 +77,35 @@ class Item :
         """
         #request setup
         headers = {'Content-Type':'application/json'}
-        url = dspace.rest_path + "/items"
+        url = dspace.rest_path + "/items/" + str(item_id)
         response = requests.get(url,headers=headers)
         item = None
         if response.status_code == httplib.OK:
-            item =  Item(json.loads(response.text)[0])
-            print item.id
+            item =  Item(json.loads(response.text))
         return item
 
-    def get_item_metadata(self,item_id):
+    @staticmethod
+    def get_item_metadata(dspace,item_id):
         """
         Returns item metadata as a dictionary
         :param item_id:
         :return:
         """
-        #TODO return metadata form item
-        return None
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/items/" + str(item_id) + "/metadata"
+        response = requests.get(url,headers=headers)
+        metadata = None
+        print response
+        if response.status_code == httplib.OK:
+            metadata =  json.loads(response.text)
+        print metadata
+        return metadata
+
+    def save(self,**kwargs):
+        """
+        :param kwargs:
+        :return: returns the item saved
+        """
+        #TODO
 
