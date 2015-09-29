@@ -60,9 +60,15 @@ class Item :
         :param kwargs: filters
         :return:
         """
+        #convert kwargs in query params
+        query_params="?"
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                query_params += "%s=%s&"%(key,value)
+
         #request setup
         headers = {'Content-Type':'application/json'}
-        url = dspace.rest_path + "/items"
+        url = dspace.rest_path + "/items" + query_params
         response = requests.get(url,headers=headers)
         items =  json.loads(response.text)
         return items
@@ -75,9 +81,16 @@ class Item :
         :param kwargs: item expand options
         :return: Item
         """
+        #convert kwargs in query params
+        query_params="?"
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                query_params += "%s=%s&"%(key,value)
+
         #request setup
         headers = {'Content-Type':'application/json'}
-        url = dspace.rest_path + "/items/" + str(item_id)
+        url = dspace.rest_path + "/items/" + str(item_id) + query_params
+        print url
         response = requests.get(url,headers=headers)
         item = None
         if response.status_code == httplib.OK:
@@ -96,10 +109,8 @@ class Item :
         url = dspace.rest_path + "/items/" + str(item_id) + "/metadata"
         response = requests.get(url,headers=headers)
         metadata = None
-        print response
         if response.status_code == httplib.OK:
             metadata =  json.loads(response.text)
-        print metadata
         return metadata
 
     def save(self,**kwargs):
