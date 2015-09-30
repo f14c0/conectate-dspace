@@ -85,8 +85,8 @@ WSGI_APPLICATION = 'Conectate.wsgi.application'
 #}
 
 
-#import dj_database_url
-#DATABASES = {'default': dj_database_url.config(default=os.environ['CLEARDB_DATABASE_URL'])}
+import dj_database_url
+DATABASES = {'default': dj_database_url.config(default=os.environ['CLEARDB_DATABASE_URL'])}
 
 DSPACE_REST_ENDPOINT = 'http://45.55.192.223:8443/rest'
 
@@ -108,4 +108,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+# Static asset configuration
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
