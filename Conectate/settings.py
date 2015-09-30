@@ -85,8 +85,8 @@ WSGI_APPLICATION = 'Conectate.wsgi.application'
 #}
 
 
-import dj_database_url
-DATABASES = {'default': dj_database_url.config(default=os.environ['CLEARDB_DATABASE_URL'])}
+#import dj_database_url
+#DATABASES['default'] =  dj_database_url.config()
 
 DSPACE_REST_ENDPOINT = 'http://45.55.192.223:8443/rest'
 
