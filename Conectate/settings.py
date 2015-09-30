@@ -77,12 +77,16 @@ WSGI_APPLICATION = 'Conectate.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
+
+
+#import dj_database_url
+#DATABASES = {'default': dj_database_url.config(default=os.environ['CLEARDB_DATABASE_URL'])}
 
 DSPACE_REST_ENDPOINT = 'http://45.55.192.223:8443/rest'
 
