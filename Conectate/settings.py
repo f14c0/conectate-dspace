@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',
+    'rest_framework'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -82,6 +83,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+DSPACE_REST_ENDPOINT = 'http://45.55.192.223:8443/rest'
 
 
 # Internationalization
