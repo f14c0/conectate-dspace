@@ -49,9 +49,9 @@ class Item :
     """
     Class Item provide methods for interacting with Items from  DSpace REST API
     """
+    #TODO code refactor of kwargs to query paramas piece of code
     def __init__(self, dict ,**kwargs):
         self.__dict__ = dict
-
 
     @staticmethod
     def get_all(dspace,**kwargs):
@@ -61,11 +61,11 @@ class Item :
         :return:
         """
         #convert kwargs in query params
+        print (kwargs)
         query_params="?"
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                query_params += "%s=%s&"%(key,value)
-
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
         #request setup
         headers = {'Content-Type':'application/json'}
         url = dspace.rest_path + "/items" + query_params
@@ -85,7 +85,7 @@ class Item :
         query_params="?"
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                query_params += "%s=%s&"%(key,value)
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
 
         #request setup
         headers = {'Content-Type':'application/json'}
@@ -98,15 +98,22 @@ class Item :
         return item
 
     @staticmethod
-    def get_item_metadata(dspace,item_id):
+    def get_item_metadata(dspace,item_id,**kwargs):
         """
         Returns item metadata as a dictionary
         :param item_id:
         :return:
         """
         #request setup
+
+        #convert kwargs in query params
+        query_params="?"
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
         headers = {'Content-Type':'application/json'}
-        url = dspace.rest_path + "/items/" + str(item_id) + "/metadata"
+        url = dspace.rest_path + "/items/" + str(item_id) + "/metadata" +query_params
+        print url
         response = requests.get(url,headers=headers)
         metadata = None
         if response.status_code == httplib.OK:
