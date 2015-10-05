@@ -2,6 +2,7 @@ __author__ = 'JULIAN'
 import requests
 import httplib
 import json
+from django.core.exceptions import ObjectDoesNotExist
 
 class DSpace:
     """
@@ -45,7 +46,7 @@ class DSpace:
 
 
 class Item :
-
+    DoesNotExist = ObjectDoesNotExist
     """
     Class Item provide methods for interacting with Items from  DSpace REST API
     """
@@ -92,9 +93,11 @@ class Item :
         url = dspace.rest_path + "/items/" + str(item_id) + query_params
         print url
         response = requests.get(url,headers=headers)
-        item = None
+
         if response.status_code == httplib.OK:
             item =  Item(json.loads(response.text))
+        elif response.status_code == httplib.NOT_FOUND:
+            raise Item.DoesNotExist
         return item
 
     @staticmethod
@@ -126,4 +129,3 @@ class Item :
         :return: returns the item saved
         """
         #TODO
-
