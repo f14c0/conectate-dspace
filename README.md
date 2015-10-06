@@ -11,7 +11,7 @@ Conecta-Te DSpace
 
 ## Contributors
 
-### Contributors on GitHub
+### Contributors on Bitbucket
 * [Contributors](https://bitbucket.org/nbonet/conecta-te-dspace/commits/all)
 
 
