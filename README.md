@@ -1,9 +1,6 @@
-Conencta-Te DSpace
+Conecta-Te DSpace
 ======
-**Software Name** is a software for things. Short description here.
-
-#### Screenshot
-![Screenshot software](http://url/screenshot-software.png "screenshot software")
+**Conecta-Te DSpace* Django based project  on Top of DSpace Rest API to  extended its functionality.
 
 ## Download
 * [Version X.Y](https://github.com/username/sw-name/archive/master.zip)
