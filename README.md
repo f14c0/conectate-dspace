@@ -3,36 +3,31 @@ Conecta-Te DSpace
 **Conecta-Te DSpace* Django based project  on Top of DSpace Rest API to  extended its functionality.
 
 ## Download
-* [Version X.Y](https://github.com/username/sw-name/archive/master.zip)
-* Other Versions
+* [Version 0.1](https://bitbucket.org/nbonet/conecta-te-dspace/get/2c6d98e4257d.zip)
 
 ## Usage
-```$ git clone https://github.com/username/software-project.git
-...```
+```$git clone https://bitbucket.org/nbonet/conecta-te-dspace.git
+```
 
 ## Contributors
 
 ### Contributors on GitHub
-* [Contributors](https://github.com/username/sw-name/graphs/contributors)
+* [Contributors](https://bitbucket.org/nbonet/conecta-te-dspace/commits/all)
 
-### Translations
-* [Transifex](https://www.transifex.com/projects/p/sw-name/)
 
 ### Third party libraries
-* see [LIBRARIES](https://github.com/username/sw-name/blob/master/LIBRARIES.md) files
+* see [LIBRARIES]() files
 
 ## License 
-* see [LICENSE](https://github.com/username/sw-name/blob/master/LICENSE.md) file
+* see [LICENSE]() file
 
 ## Version 
-* Version X.Y
+* Version 0.1
 
 ## How-to use this code
-* see [INSTRUCTIONS](https://github.com/username/sw-name/blob/master/INSTRUCTIONS.md) file
+* see [INSTRUCTIONS]() file
 
 ## Contact
 #### Developer/Company
 * Homepage: 
-* e-mail: 
-* Twitter: [@twitterhandle](https://twitter.com/twitterhandle "twitterhandle on twitter")
-* other communication/social media
+* e-mail: jc.vega11@uniandes.edu.co
