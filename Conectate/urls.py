@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^rest/items/$',views.ItemList.as_view()),
     url(r'^rest/items/(?P<id>[0-9]+)/$',views.ItemDetail.as_view()),
+    url(r'^rest/collections/$',views.CollectionList.as_view()),
+    url(r'^rest/collections/(?P<id>[0-9]+)/$',views.CollectionDetail.as_view())
 ]

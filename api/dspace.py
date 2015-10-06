@@ -62,7 +62,7 @@ class Item :
         :return:
         """
         #convert kwargs in query params
-        print (kwargs)
+
         query_params="?"
         if kwargs is not None:
             for key, value in kwargs.iteritems():
@@ -129,3 +129,68 @@ class Item :
         :return: returns the item saved
         """
         #TODO
+        pass
+    def delete(self,**kwargs):
+        #TODO
+        pass
+
+class Collection :
+    DoesNotExist = ObjectDoesNotExist
+    """
+    Class Collection provide methods for interacting with Collections from  DSpace REST API
+    """
+    def __init__(self,dict,**kwargs):
+        self.__dict__ = dict
+
+    @staticmethod
+    def get_all(dspace,**kwargs):
+        """
+        Returns an array of collections, gathered from DSpace REST API
+        :param kwargs: filters
+        :return:
+        """
+        #convert kwargs in query params
+
+        query_params="?"
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/collections" + query_params
+        response = requests.get(url,headers=headers)
+        collections =  json.loads(response.text)
+        return collections
+
+    @staticmethod
+    def get_collection(dspace, collection_id,**kwargs):
+        """
+        Retrieve an Collection by Id
+        :param id: item id
+        :param kwargs: Collection expand options
+        :return: Collection
+        """
+        #convert kwargs in query params
+        query_params="?"
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
+
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/collections/" + str(collection_id) + query_params
+        print url
+        response = requests.get(url,headers=headers)
+
+        if response.status_code == httplib.OK:
+            collection =  Collection(json.loads(response.text))
+        elif response.status_code == httplib.NOT_FOUND:
+            raise Collection.DoesNotExist
+        return collection
+
+    def save(self,**kwargs):
+        #TODO
+        pass
+    def delete(self,**kwargs):
+        #TODO
+        pass
