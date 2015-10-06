@@ -18,10 +18,10 @@ Conecta-Te DSpace
 ### Third party libraries
 * see [LIBRARIES]() files
 
-## License 
+## License
 * see [LICENSE]() file
 
-## Version 
+## Version
 * Version 0.1
 
 ## How-to use this code
@@ -29,5 +29,5 @@ Conecta-Te DSpace
 
 ## Contact
 #### Developer/Company
-* Homepage: 
+* Homepage:
 * e-mail: jc.vega11@uniandes.edu.co
