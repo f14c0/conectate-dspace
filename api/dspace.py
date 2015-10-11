@@ -66,10 +66,11 @@ class Item :
         query_params="?"
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                query_params += "{0}={1}&".format(str(key),str(value[0]))
+                query_params += "{0}={1}&".format(str(key),str(value))
         #request setup
         headers = {'Content-Type':'application/json'}
         url = dspace.rest_path + "/items" + query_params
+        print url
         response = requests.get(url,headers=headers)
         items =  json.loads(response.text)
         return items
@@ -86,7 +87,7 @@ class Item :
         query_params="?"
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                query_params += "{0}={1}&".format(str(key),str(value[0]))
+                query_params += "{0}={1}&".format(str(key),str(value))
 
         #request setup
         headers = {'Content-Type':'application/json'}
