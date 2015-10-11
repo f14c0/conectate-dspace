@@ -1,3 +1,5 @@
+[ ![Codeship Status for nbonet/Conecta-Te DSpace](https://codeship.com/projects/7fe996f0-5258-0133-d3c9-26effc6ffe4b/status?branch=master)](https://codeship.com/projects/108071)
+
 Conecta-Te DSpace
 ======
 **Conecta-Te DSpace* Django based project  on Top of DSpace Rest API to  extended its functionality.
