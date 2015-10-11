@@ -44,7 +44,6 @@ class DSpace:
         response =  requests.post(url,headers = headers )
         return response
 
-
 class Item :
     DoesNotExist = ObjectDoesNotExist
     """
@@ -195,3 +194,10 @@ class Collection :
     def delete(self,**kwargs):
         #TODO
         pass
+
+class Community:
+    DoesNotExist = ObjectDoesNotExist
+    """
+    Class Community provide methods for interacting with Communities from  DSpace REST API
+    """
+    #TODO code refactor of kwargs to query paramas piece of code
