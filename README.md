@@ -18,7 +18,7 @@ Conecta-Te DSpace
 
 
 ### Third party libraries
-* see [LIBRARIES]() files
+* see [LIBRARIES](https://bitbucket.org/nbonet/conecta-te-dspace/src/572e52f1a71491789c9a583c8b570a3530cab964/LIBRARIES.md?at=master&fileviewer=file-view-default) files
 
 ## License
 * see [LICENSE]() file
