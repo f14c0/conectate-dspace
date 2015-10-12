@@ -130,6 +130,7 @@ class Item :
         """
         #TODO
         pass
+
     def delete(self,**kwargs):
         #TODO
         pass
@@ -201,3 +202,54 @@ class Community:
     Class Community provide methods for interacting with Communities from  DSpace REST API
     """
     #TODO code refactor of kwargs to query paramas piece of code
+
+    def __init__(self, dict ,**kwargs):
+        self.__dict__ = dict
+
+    @staticmethod
+    def get_all(dspace,**kwargs):
+        """
+        Returns an array of communities, gathered from DSpace REST API
+        :param kwargs: filters
+        :return: communities array
+        """
+        #convert kwargs in query params
+
+        query_params="?"
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                query_params += "{0}={1}&".format(str(key),str(value))
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/communities" + query_params
+        print url
+        response = requests.get(url,headers=headers)
+        communities =  json.loads(response.text)
+        return communities
+
+
+    @staticmethod
+    def get_community(dspace, item_id,**kwargs):
+        """
+        Retrieve an Community by Id
+        :param id: community id
+        :param kwargs: community expand options
+        :return: Community
+        """
+        #convert kwargs in query params
+        query_params="?"
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                query_params += "{0}={1}&".format(str(key),str(value))
+
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/communities/" + str(item_id) + query_params
+        print url
+        response = requests.get(url,headers=headers)
+
+        if response.status_code == httplib.OK:
+            community =  Community(json.loads(response.text))
+        elif response.status_code == httplib.NOT_FOUND:
+            raise Community.DoesNotExist
+        return community
