@@ -167,7 +167,7 @@ class Collection :
     def get_collection(dspace, collection_id,**kwargs):
         """
         Retrieve an Collection by Id
-        :param id: item id
+        :param collection_id: collection id
         :param kwargs: Collection expand options
         :return: Collection
         """
@@ -188,6 +188,33 @@ class Collection :
         elif response.status_code == httplib.NOT_FOUND:
             raise Collection.DoesNotExist
         return collection
+
+    @staticmethod
+    def get_items(dspace,collection_id,*args,**kwargs):
+        """
+        Retrieve items in a especific collection
+        :param collection_id: collection id
+        :param kwargs: Collection expand options
+        :return: Item array
+        """
+        #convert kwargs in query params
+
+        query_params="?"
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/collections/"+str(collection_id)+"/items"+ query_params
+        print url
+        response = requests.get(url,headers=headers)
+
+        if response.status_code == httplib.OK:
+            items =  json.loads(response.text)
+        elif response.status_code == httplib.NOT_FOUND:
+            raise Collection.DoesNotExist
+
+        return items
 
     def save(self,**kwargs):
         #TODO

@@ -4,12 +4,30 @@ from django.http import Http404
 from rest_framework.views import  APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import api_view
+
 from dspace import Item,DSpace,Collection,Community
 from Conectate.settings import DSPACE_REST_ENDPOINT
 
 import json
 
 dspace = DSpace(DSPACE_REST_ENDPOINT)
+
+#fuction based views
+@api_view(['GET'])
+def get_items_by_collection(request,id):
+    """
+    Return all items of the specified collection.
+    """
+
+    try:
+        items =  Collection.get_items(dspace,id,**dict(request.query_params))
+        return  Response(items, status=status.HTTP_200_OK)
+    except Collection.DoesNotExist:
+        raise Http404
+
+#class based views
+#TODO Refactor
 
 class ItemList(APIView):
     """

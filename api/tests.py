@@ -3,7 +3,8 @@ import httplib
 
 from django.test import TestCase
 
-from dspace import DSpace,Item,Community
+from dspace import DSpace,Item,Community,Collection
+from django.core.exceptions import ObjectDoesNotExist
 
 __author__ = 'JULIAN'
 
@@ -101,6 +102,56 @@ class TestDSpace(TestCase):
       metadata = Item.get_item_metadata(dspace,test_id)
       self.assertGreater(len(metadata),0)
 
+
+  #Collection Class Test
+  #TODO Refactor
+
+  def test_get_all_collections(self):
+      """
+      Test Retrieving all collections
+      """
+      dspace= self.dspace
+      collections = Collection.get_all(dspace)
+      self.assertGreater(len(collections),0)
+
+  def test_get_all_collections_with_limit(self):
+      """
+      Test Retrieving all collections with limit
+      """
+      dspace= self.dspace
+      max_collections = 5
+      collections = Collection.get_all(dspace,limit=[max_collections])
+      self.assertLessEqual(len(collections),max_collections)
+
+  def test_get_community(self):
+      """
+      Test Retrieving an collection by Id
+      """
+      dspace= self.dspace
+      test_id = 2
+      collection = Collection.get_collection(dspace,test_id)
+      self.assertEqual(collection.id,test_id,"Get collection by Id Fails")
+
+  def test_get_collection_items(self):
+      """
+      Test retrieving all items from an especific collection
+      """
+      dspace =  self.dspace
+      test_id = 2
+      items = Collection.get_items(dspace,test_id,expand=["parentCollection"])
+      self.assertIsNotNone(items)
+      self.assertRaises
+      for item in items:
+          item_temp = Item(dict(item))
+          self.assertEqual(test_id,item_temp.parentCollection["id"])
+
+  def test_get_not_found_collection_items(self):
+      """
+      Test retrieving all items from an especific not found collection
+      """
+      dspace =  self.dspace
+      test_id = -1
+      self.assertRaises(Collection.DoesNotExist,lambda:Collection.get_items(dspace,test_id,expand=["parentCollection"]))
 
   #Comunity Class Test
   #TODO Refactor
