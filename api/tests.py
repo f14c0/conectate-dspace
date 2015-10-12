@@ -71,7 +71,7 @@ class TestDSpace(TestCase):
       """
       dspace= self.dspace
       max_items = 5
-      items = Item.get_all(dspace,limit=max_items)
+      items = Item.get_all(dspace,limit=[max_items])
       self.assertLessEqual(len(items),max_items)
 
   def test_get_item(self):
@@ -89,7 +89,7 @@ class TestDSpace(TestCase):
       """
       dspace= self.dspace
       test_id = 5
-      item = Item.get_item(dspace,test_id,expand="metadata")
+      item = Item.get_item(dspace,test_id,expand=["metadata"])
       self.assertIsNotNone(item.metadata,"Item metadata not retrieved")
 
   def test_get_item_metadata(self):
@@ -119,7 +119,7 @@ class TestDSpace(TestCase):
       """
       dspace= self.dspace
       max_communities = 5
-      communities = Community.get_all(dspace,limit=max_communities)
+      communities = Community.get_all(dspace,limit=[max_communities])
       self.assertLessEqual(len(communities),max_communities)
 
   def test_get_community(self):
