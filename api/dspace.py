@@ -65,7 +65,7 @@ class Item :
         query_params="?"
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                query_params += "{0}={1}&".format(str(key),str(value))
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
         #request setup
         headers = {'Content-Type':'application/json'}
         url = dspace.rest_path + "/items" + query_params
@@ -86,7 +86,7 @@ class Item :
         query_params="?"
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                query_params += "{0}={1}&".format(str(key),str(value))
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
 
         #request setup
         headers = {'Content-Type':'application/json'}
@@ -218,7 +218,7 @@ class Community:
         query_params="?"
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                query_params += "{0}={1}&".format(str(key),str(value))
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
         #request setup
         headers = {'Content-Type':'application/json'}
         url = dspace.rest_path + "/communities" + query_params
@@ -240,7 +240,7 @@ class Community:
         query_params="?"
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                query_params += "{0}={1}&".format(str(key),str(value))
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
 
         #request setup
         headers = {'Content-Type':'application/json'}
