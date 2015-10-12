@@ -120,13 +120,13 @@ class TestDSpace(TestCase):
       dspace= self.dspace
       max_communities = 5
       communities = Community.get_all(dspace,limit=max_communities)
-      self.assertLessEqual(len(communities),max_items)
+      self.assertLessEqual(len(communities),max_communities)
 
   def test_get_community(self):
       """
       Test Retrieving an community by Id
       """
       dspace= self.dspace
-      test_id = 5
+      test_id = 2
       community = Community.get_community(dspace,test_id)
       self.assertEqual(community.id,test_id,"Get community by Id Fails")
