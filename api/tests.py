@@ -4,6 +4,7 @@ import httplib
 from django.test import TestCase
 
 from dspace import DSpace,Item,Community,Collection
+from django.core.exceptions import ObjectDoesNotExist
 
 __author__ = 'JULIAN'
 
@@ -139,10 +140,18 @@ class TestDSpace(TestCase):
       test_id = 2
       items = Collection.get_items(dspace,test_id,expand=["parentCollection"])
       self.assertIsNotNone(items)
-      
+      self.assertRaises
       for item in items:
-          self.assertEqual(test_id,item.parentCollection.id)
+          item_temp = Item(dict(item))
+          self.assertEqual(test_id,item_temp.parentCollection["id"])
 
+  def test_get_not_found_collection_items(self):
+      """
+      Test retrieving all items from an especific not found collection
+      """
+      dspace =  self.dspace
+      test_id = -1
+      self.assertRaises(Collection.DoesNotExist,lambda:Collection.get_items(dspace,test_id,expand=["parentCollection"]))
 
   #Comunity Class Test
   #TODO Refactor
