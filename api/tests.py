@@ -3,7 +3,7 @@ import httplib
 
 from django.test import TestCase
 
-from dspace import DSpace,Item
+from dspace import DSpace,Item,Community
 
 __author__ = 'JULIAN'
 
@@ -35,7 +35,6 @@ class TestDSpace(TestCase):
       response = self.dspace.login("api_user@example.com","not_my_password")
       self.assertEqual(expected_response_code,response.status_code, "Login error test fails")
 
-
   def test_logout_previous_login(self):
       """
       Tests  Logout previous login
@@ -46,7 +45,6 @@ class TestDSpace(TestCase):
       response = self.dspace.logout()
       self.assertEqual(response.status_code,success_response_code,"Logout test fails")
 
-
   def test_logout_no_login(self):
       """
       Tests Logout no previous login
@@ -55,6 +53,9 @@ class TestDSpace(TestCase):
       #login before test log out
       response = self.dspace.logout()
       self.assertEqual(response.status_code,bad_request_code,"Logout test fails")
+
+  #ITEM Class Test
+  #TODO Refactor
 
   def test_get_all_items(self):
       """
@@ -89,7 +90,6 @@ class TestDSpace(TestCase):
       dspace= self.dspace
       test_id = 5
       item = Item.get_item(dspace,test_id,expand="metadata")
-      print item.metadata
       self.assertIsNotNone(item.metadata,"Item metadata not retrieved")
 
   def test_get_item_metadata(self):
@@ -100,3 +100,33 @@ class TestDSpace(TestCase):
       test_id = 5
       metadata = Item.get_item_metadata(dspace,test_id)
       self.assertGreater(len(metadata),0)
+
+
+  #Comunity Class Test
+  #TODO Refactor
+
+  def test_get_all_communities(self):
+      """
+      Test Retrieving all communities
+      """
+      dspace= self.dspace
+      communities = Community.get_all(dspace)
+      self.assertGreater(len(communities),0)
+
+  def test_get_all_communities_with_limit(self):
+      """
+      Test Retrieving all communities with limit
+      """
+      dspace= self.dspace
+      max_communities = 5
+      communities = Community.get_all(dspace,limit=max_communities)
+      self.assertLessEqual(len(communities),max_communities)
+
+  def test_get_community(self):
+      """
+      Test Retrieving an community by Id
+      """
+      dspace= self.dspace
+      test_id = 2
+      community = Community.get_community(dspace,test_id)
+      self.assertEqual(community.id,test_id,"Get community by Id Fails")

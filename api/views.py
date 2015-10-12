@@ -4,7 +4,7 @@ from django.http import Http404
 from rest_framework.views import  APIView
 from rest_framework.response import Response
 from rest_framework import status
-from dspace import Item,DSpace,Collection
+from dspace import Item,DSpace,Collection,Community
 from Conectate.settings import DSPACE_REST_ENDPOINT
 
 import json
@@ -60,6 +60,7 @@ class CollectionList(APIView):
     def post(self, request,*args,**kwargs):
         #TODO
         pass
+
 class CollectionDetail(APIView):
     """
     Retrieve, update or delete Collection instance
@@ -75,6 +76,42 @@ class CollectionDetail(APIView):
         collection = self.get_object(id,**dict(self.request.query_params))
         collection_response = json.JSONDecoder().decode(json.dumps(collection.__dict__))
         return Response(collection_response)
+
+    def put(self,request,id, *args,**kwargs):
+        #TODO
+        pass
+
+    def delete(self,request,id, *args,**kwargs):
+        #TODO
+        pass
+
+class CommunityList(APIView):
+    """
+    List all communities or create a new Community
+    """
+    def get(self,request,*args,**kwargs):
+        communities = Community.get_all(dspace,**dict(self.request.query_params))
+        return Response(communities, status=status.HTTP_200_OK)
+
+    def post(self, request,*args,**kwargs):
+        #TODO
+        pass
+
+class CommunityDetail(APIView):
+    """
+    Retrieve, update or delete Community instance
+    """
+    def get_object(self,id,**kwargs):
+        try:
+            community = Community.get_community(dspace,id,**dict(kwargs))
+            return community
+        except Community.DoesNotExist:
+            raise Http404
+
+    def get(self,request,id, *args,**kwargs):
+        community = self.get_object(id,**dict(self.request.query_params))
+        community_response = json.JSONDecoder().decode(json.dumps(community.__dict__))
+        return Response(community_response)
 
     def put(self,request,id, *args,**kwargs):
         #TODO
