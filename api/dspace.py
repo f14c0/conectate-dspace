@@ -280,3 +280,84 @@ class Community:
         elif response.status_code == httplib.NOT_FOUND:
             raise Community.DoesNotExist
         return community
+
+class Bitstream :
+    DoesNotExist = ObjectDoesNotExist
+    """
+    Class Bitstream provide methods for interacting with Bitstreams from  DSpace REST API
+    """
+    #TODO code refactor of kwargs to query paramas piece of code
+    def __init__(self, dict ,**kwargs):
+        self.__dict__ = dict
+
+    @staticmethod
+    def get_all(dspace,**kwargs):
+        """
+        Returns an array of bitstream, gathered from DSpace REST API
+        :param kwargs: filters
+        :return:
+        """
+        #convert kwargs in query params
+        query_params="?"
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/bitstreams" + query_params
+        print url
+        response = requests.get(url,headers=headers)
+        bitstreams =  json.loads(response.text)
+        return bitstreams
+
+    @staticmethod
+    def get_bitstream(dspace, bitstream_id,**kwargs):
+        """
+        Retrieve an Bitstream by Id
+        :param id: bitstream id
+        :param kwargs: bitstream expand options
+        :return: Bitstream
+        """
+        #convert kwargs in query params
+        query_params="?"
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
+
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/bitstreams/" + str(bitstream_id) + query_params
+        print url
+        response = requests.get(url,headers=headers)
+
+        if response.status_code == httplib.OK:
+            bitstream =  Bitstream(json.loads(response.text))
+        elif response.status_code == httplib.NOT_FOUND:
+            raise Bitstream.DoesNotExist
+        return bitstream
+
+    @staticmethod
+    def retrieve(dspace,bitstream_id,**kwargs):
+        """
+        Retrieve bitstream data gathered from DSpace REST API
+        :param id: bitstream id
+        :param kwargs: bitstream options
+        :return:
+        """
+        #convert kwargs in query params
+        query_params="?"
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
+
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/bitstreams/" +str(bitstream_id)+"/retrieve"+query_params
+        print url
+        response = requests.get(url,headers=headers)
+
+        if response.status_code == httplib.OK:
+            data =  response.content
+        elif response.status_code == httplib.NOT_FOUND:
+            raise Bitstream.DoesNotExist
+        return data
