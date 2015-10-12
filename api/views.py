@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 
-from dspace import Item,DSpace,Collection,Community
+from dspace import Item,DSpace,Collection,Community,Bitstream
 from Conectate.settings import DSPACE_REST_ENDPOINT
 
 import json
@@ -19,10 +19,23 @@ def get_items_by_collection(request,id):
     """
     Return all items of the specified collection.
     """
-
     try:
         items =  Collection.get_items(dspace,id,**dict(request.query_params))
         return  Response(items, status=status.HTTP_200_OK)
+    except Collection.DoesNotExist:
+        raise Http404
+
+
+@api_view(['GET'])
+def get_bitstream_data(request,id):
+    """
+    Return data from an especified bitstream.
+    """
+    try:
+        bitstream_data =  Bitstream.retrieve(dspace,id,**dict(request.query_params))
+        response = Response(status=status.HTTP_200_OK)
+        response.content = bitstream_data
+        return  response
     except Collection.DoesNotExist:
         raise Http404
 
@@ -138,3 +151,41 @@ class CommunityDetail(APIView):
     def delete(self,request,id, *args,**kwargs):
         #TODO
         pass
+
+class BitstreamList(APIView):
+    """
+    List all bitstreams or create a new Bitstream
+    """
+    def get(self,request,*args,**kwargs):
+        bitstreams = Bitstream.get_all(dspace,**dict(self.request.query_params))
+        return Response(bitstreams, status=status.HTTP_200_OK)
+
+    def post(self, request,*args,**kwargs):
+        #TODO
+        pass
+
+class BitstreamDetail(APIView):
+    """
+    Retrieve, update or delete Bitstream instance
+    """
+    def get_object(self,id,**kwargs):
+        try:
+            bitstream = Bitstream.get_bitstream(dspace,id,**dict(kwargs))
+            return bitstream
+        except Bitstream.DoesNotExist:
+            raise Http404
+
+    def get(self,request,id, *args,**kwargs):
+        bitstream = self.get_object(id,**dict(self.request.query_params))
+        bitstream_response = json.JSONDecoder().decode(json.dumps(bitstream.__dict__))
+        return Response(bitstream_response)
+
+    def put(self,request,id, *args,**kwargs):
+        #TODO
+        pass
+
+    def delete(self,request,id, *args,**kwargs):
+        #TODO
+        pass
+
+        bitstream
