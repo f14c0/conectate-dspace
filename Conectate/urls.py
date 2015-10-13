@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^rest/collections/(?P<id>[0-9]+)/items$', views.get_items_by_collection),
     url(r'^rest/communities/$',views.CommunityList.as_view()),
     url(r'^rest/communities/(?P<id>[0-9]+)/$',views.CommunityDetail.as_view()),
+    url(r'^rest/communities/top-communities',views.get_top_communities),
     url(r'^rest/bitstreams/$',views.BitstreamList.as_view()),
     url(r'^rest/bitstreams/(?P<id>[0-9]+)/$',views.BitstreamDetail.as_view()),
     url(r'^rest/bitstreams/(?P<id>[0-9]+)/retrieve$',views.get_bitstream_data),
