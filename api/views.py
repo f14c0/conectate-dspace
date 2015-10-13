@@ -49,6 +49,14 @@ def search_by_keywords(request):
     items = Item.search_by_keywords(dspace,keywords)
     return Response(items,status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+def get_top_communities(request):
+    """
+    Return  top level communities array
+    """
+    communities = Community.get_top_communities(dspace,**dict(request.query_params))
+    return Response(communities,status=status.HTTP_200_OK)
+
 
 
 #class based views

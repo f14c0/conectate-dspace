@@ -300,7 +300,7 @@ class Community:
 
 
     @staticmethod
-    def get_community(dspace, item_id,**kwargs):
+    def get_community(dspace, community_id,**kwargs):
         """
         Retrieve an Community by Id
         :param id: community id
@@ -315,7 +315,7 @@ class Community:
 
         #request setup
         headers = {'Content-Type':'application/json'}
-        url = dspace.rest_path + "/communities/" + str(item_id) + query_params
+        url = dspace.rest_path + "/communities/" + str(community_id) + query_params
         print url
         response = requests.get(url,headers=headers)
 
@@ -324,6 +324,27 @@ class Community:
         elif response.status_code == httplib.NOT_FOUND:
             raise Community.DoesNotExist
         return community
+
+    @staticmethod
+    def get_top_communities(dspace,**kwargs):
+        """
+        Retrieve  top level communities
+        :param kwargs: community expand options
+        :return: Community array
+        """
+        #convert kwargs in query params
+
+        query_params="?"
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/communities/top-communities" + query_params
+        print url
+        response = requests.get(url,headers=headers)
+        communities =  json.loads(response.text)
+        return communities
 
 class Bitstream :
     DoesNotExist = ObjectDoesNotExist
