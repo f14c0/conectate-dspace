@@ -163,7 +163,6 @@ class TestDSpace(TestCase):
       test_id = 2
       items = Collection.get_items(dspace,test_id,expand=["parentCollection"])
       self.assertIsNotNone(items)
-      self.assertRaises
       for item in items:
           item_temp = Item(dict(item))
           self.assertEqual(test_id,item_temp.parentCollection["id"])
@@ -176,7 +175,7 @@ class TestDSpace(TestCase):
       test_id = -1
       self.assertRaises(Collection.DoesNotExist,lambda:Collection.get_items(dspace,test_id,expand=["parentCollection"]))
 
-  #Comunity Class Test
+  #Community Class Test
   #TODO Refactor
 
   def test_get_all_communities(self):
@@ -214,3 +213,23 @@ class TestDSpace(TestCase):
       self.assertIsNotNone(communities)
       for com in communities:
           self.assertIsNone(com['parentCommunity'])
+
+  def test_get_community_collections(self):
+      """
+      Test retrieving all collections from an especific community
+      """
+      dspace =  self.dspace
+      test_id = 2
+      collections = Community.get_collections(dspace,test_id,expand=["parentCommunity"])
+      self.assertIsNotNone(collections)
+      for collection in collections:
+          collection_temp = Collection(dict(collection))
+          self.assertEqual(test_id,collection_temp.parentCommunity["id"])
+
+  def test_get_not_found_community_collections(self):
+      """
+      Test retrieving all collections from an especific not found community
+      """
+      dspace =  self.dspace
+      test_id = -1
+      self.assertRaises(Community.DoesNotExist,lambda:Community.get_collections(dspace,test_id,expand=["parentCommunity"]))
