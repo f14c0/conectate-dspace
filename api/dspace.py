@@ -147,7 +147,36 @@ class Item :
             items =  json.loads(response.text)
         return items
 
-    
+    @staticmethod
+    def search_by_keywords(dspace,keywords,**kwargs):
+        """
+        Returns an array of items, gathered from DSpace REST API,
+        which match with given keywords
+        :param kwargs: filters
+        :return: Item array
+        """
+        items_response=[]
+        items_dict={}
+        if keywords is not None:
+            for kw in keywords:
+                if len(kw) <= 2:
+                    continue
+                else:
+                    #improve mechanism to set up language an metadata field
+                    #TODO
+                    language ="en_US"
+                    field = "lom.general.keyword"
+                    items = Item.find_by_metadata_field(dspace,field,kw,language)
+
+                    if items is not None:
+                        for item in items:
+                            items_dict[item['id']]=item
+                    else:
+                        return items_response
+            #parse dict to items_response
+            for value in items_dict.itervalues():
+                items_response.append(value)
+        return items_response
 
 
 class Collection :

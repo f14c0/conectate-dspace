@@ -14,6 +14,7 @@ import json
 dspace = DSpace(DSPACE_REST_ENDPOINT)
 
 #fuction based views
+
 @api_view(['GET'])
 def get_items_by_collection(request,id):
     """
@@ -38,6 +39,17 @@ def get_bitstream_data(request,id):
         return  response
     except Collection.DoesNotExist:
         raise Http404
+
+@api_view(['GET'])
+def search_by_keywords(request):
+    """
+    Returns an array of items, which match with given keywords
+    """
+    keywords = request.query_params['q'].split()
+    items = Item.search_by_keywords(dspace,keywords)
+    return Response(items,status=status.HTTP_200_OK)
+
+
 
 #class based views
 #TODO Refactor
