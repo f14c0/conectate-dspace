@@ -26,7 +26,6 @@ def get_items_by_collection(request,id):
     except Collection.DoesNotExist:
         raise Http404
 
-
 @api_view(['GET'])
 def get_bitstream_data(request,id):
     """
@@ -57,7 +56,16 @@ def get_top_communities(request):
     communities = Community.get_top_communities(dspace,**dict(request.query_params))
     return Response(communities,status=status.HTTP_200_OK)
 
-
+@api_view(['GET'])
+def get_collections_by_community(request,id):
+    """
+    Return all collections of the specified community.
+    """
+    try:
+        collections =  Community.get_collections(dspace,id,**dict(request.query_params))
+        return  Response(collections, status=status.HTTP_200_OK)
+    except Community.DoesNotExist:
+        raise Http404
 
 #class based views
 #TODO Refactor

@@ -178,7 +178,6 @@ class Item :
                 items_response.append(value)
         return items_response
 
-
 class Collection :
     DoesNotExist = ObjectDoesNotExist
     """
@@ -298,7 +297,6 @@ class Community:
         communities =  json.loads(response.text)
         return communities
 
-
     @staticmethod
     def get_community(dspace, community_id,**kwargs):
         """
@@ -345,6 +343,30 @@ class Community:
         response = requests.get(url,headers=headers)
         communities =  json.loads(response.text)
         return communities
+
+    @staticmethod
+    def get_collections(dspace,community_id,**kwargs):
+        """
+        Retrieve collections in a especific Community
+        :param community_id: community id
+        :param kwargs: Community expand options
+        :return: collection array
+        """
+        #convert kwargs in query params
+        query_params="?"
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                query_params += "{0}={1}&".format(str(key),str(value[0]))
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/communities/"+str(community_id)+"/collections"+ query_params
+        print url
+        response = requests.get(url,headers=headers)
+        if response.status_code == httplib.OK:
+            collections =  json.loads(response.text)
+        elif response.status_code == httplib.NOT_FOUND:
+            raise Community.DoesNotExist
+        return collections
 
 class Bitstream :
     DoesNotExist = ObjectDoesNotExist
