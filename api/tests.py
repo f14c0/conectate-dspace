@@ -123,10 +123,8 @@ class TestDSpace(TestCase):
       dspace = self.dspace
       keywords = ["anatomia","prueba"]
       items = Item.search_by_keywords(dspace,keywords)
-      print items
       self.assertIsNotNone(items)
       self.assertGreaterEqual(len(items),2)
-
 
   #Collection Class Test
   #TODO Refactor
@@ -206,3 +204,13 @@ class TestDSpace(TestCase):
       test_id = 2
       community = Community.get_community(dspace,test_id)
       self.assertEqual(community.id,test_id,"Get community by Id Fails")
+
+  def test_get_top_communities(self):
+      """
+      Test retrieving top level communities
+      """
+      dspace = self.dspace
+      communities = Community.get_top_communities(dspace,expand=["parentCommunity"])
+      self.assertIsNotNone(communities)
+      for com in communities:
+          self.assertIsNone(com['parentCommunity'])
