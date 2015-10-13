@@ -67,6 +67,15 @@ def get_collections_by_community(request,id):
     except Community.DoesNotExist:
         raise Http404
 
+@api_view(['GET'])
+def get_last_items(request):
+    """
+    Return an array of items, sorted desc by date modified
+    """
+    items = Item.get_lastest(dspace,**dict(request.query_params))
+    return  Response(items, status=status.HTTP_200_OK)
+
+
 #class based views
 #TODO Refactor
 
