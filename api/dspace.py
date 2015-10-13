@@ -2,6 +2,7 @@ __author__ = 'JULIAN'
 import requests
 import httplib
 import json
+from operator import itemgetter
 from django.core.exceptions import ObjectDoesNotExist
 
 class DSpace:
@@ -72,7 +73,8 @@ class Item :
         print url
         response = requests.get(url,headers=headers)
         items =  json.loads(response.text)
-        return items
+        items_sorted = sorted(items, key=itemgetter('lastModified'), reverse=True)
+        return items_sorted
 
     @staticmethod
     def get_item(dspace, item_id,**kwargs):
