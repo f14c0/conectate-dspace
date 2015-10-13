@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^rest/items/$',views.ItemList.as_view()),
     url(r'^rest/items/(?P<id>[0-9]+)/$',views.ItemDetail.as_view()),
     url(r'^rest/items/search$',views.search_by_keywords),
+    url(r'^rest/items/last$',views.get_last_items),
     url(r'^rest/collections/$',views.CollectionList.as_view()),
     url(r'^rest/collections/(?P<id>[0-9]+)/$',views.CollectionDetail.as_view()),
     url(r'^rest/collections/(?P<id>[0-9]+)/items$', views.get_items_by_collection),

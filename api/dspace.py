@@ -77,6 +77,28 @@ class Item :
         return items_sorted
 
     @staticmethod
+    def get_lastest(dspace, **kwargs):
+        """
+        Returns an array of items, sorted desc by date modified,from DSpace REST API
+        :param kwargs: filters
+        :return:
+        """
+        limit=10
+        if kwargs is not None:
+
+            if 'limit'in kwargs:
+                limit=int(kwargs['limit'][0])
+        #request setup
+        headers = {'Content-Type':'application/json'}
+        query_params = "?expand=all"
+        url = dspace.rest_path + "/items" + query_params
+        print url
+        response = requests.get(url,headers=headers)
+        items =  json.loads(response.text)
+        items_sorted = sorted(items, key=itemgetter('lastModified'), reverse=True)
+        return items_sorted[0:limit]
+
+    @staticmethod
     def get_item(dspace, item_id,**kwargs):
         """
         Retrieve an Item by Id
