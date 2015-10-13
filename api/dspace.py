@@ -135,6 +135,21 @@ class Item :
         #TODO
         pass
 
+    @staticmethod
+    def find_by_metadata_field(dspace,key,value,language,**kwargs):
+        #request setup
+        payload = '{{"key":"{0}","value": "{1}","language": "{2}"}}'.format(str(key),str(value),str(language))
+        headers = {'Content-Type':'application/json'}
+        url = dspace.rest_path + "/items/find-by-metadata-field"
+        print url
+        response = requests.post(url,data= payload ,headers = headers)
+        if response.status_code == httplib.OK:
+            items =  json.loads(response.text)
+        return items
+
+    
+
+
 class Collection :
     DoesNotExist = ObjectDoesNotExist
     """
