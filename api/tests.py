@@ -79,7 +79,7 @@ class TestDSpace(TestCase):
       """
       Test Retrieving an item by Id
       """
-      dspace= self.dspace
+      dspace = self.dspace
       test_id = 5
       item = Item.get_item(dspace,test_id)
       self.assertEqual(item.id,test_id,"Get item by Id Fails")
@@ -102,6 +102,19 @@ class TestDSpace(TestCase):
       metadata = Item.get_item_metadata(dspace,test_id)
       self.assertGreater(len(metadata),0)
 
+  def test_find_by_metadata_field(self):
+      """
+      Test searching items by metadata field
+      """
+      #test using known item and field
+      #TODO test with dynamic items and metadata fields
+      dspace = self.dspace
+      language ="en_US"
+      field = "lom.general.keyword"
+      value = "prueba"
+      items = Item.find_by_metadata_field(dspace,field,value,language)
+      self.assertIsNotNone(items)
+      self.assertGreater(len(items),0)
 
   #Collection Class Test
   #TODO Refactor
