@@ -111,10 +111,22 @@ class TestDSpace(TestCase):
       dspace = self.dspace
       language ="en_US"
       field = "lom.general.keyword"
-      value = "prueba"
+      value = "anatomia"
       items = Item.find_by_metadata_field(dspace,field,value,language)
       self.assertIsNotNone(items)
       self.assertGreater(len(items),0)
+
+  def test_search_by_keywords(self):
+      """
+      Test searching by keywords
+      """
+      dspace = self.dspace
+      keywords = ["anatomia","prueba"]
+      items = Item.search_by_keywords(dspace,keywords)
+      print items
+      self.assertIsNotNone(items)
+      self.assertGreaterEqual(len(items),2)
+
 
   #Collection Class Test
   #TODO Refactor
