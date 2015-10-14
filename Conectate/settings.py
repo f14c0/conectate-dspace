@@ -42,7 +42,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'django_nose',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,7 +95,8 @@ else:
     import dj_database_url
     DATABASES={}
     DATABASES['default'] =  dj_database_url.config()
-    DSPACE_REST_ENDPOINT = 'http://45.55.192.223:8443/rest'
+
+DSPACE_REST_ENDPOINT = 'http://45.55.192.223:8443/rest'
 
 
 # Internationalization
@@ -126,3 +128,12 @@ STATICFILES_DIRS = (
 
 #CORS WHITELIST
 CORS_ORIGIN_WHITELIST = ('conecta-te.herokuapp.com')
+
+#Test
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=api',
+    '--cover-inclusive',
+    '--cover-html'
+]
