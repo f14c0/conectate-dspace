@@ -11,6 +11,7 @@ from Conectate.settings import DSPACE_REST_ENDPOINT
 
 
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 from api.serializers import UserSerializer
 
 
@@ -248,8 +249,8 @@ class UserList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk, format=None):
-        user = self.get_object(pk)
+    def delete(self, request, id, format=None):
+        user = self.get_object(id)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -257,26 +258,26 @@ class UserDetail(APIView):
     """
     Retrieve, update or delete a user instance.
     """
-    def get_object(self, pk):
+    def get_object(self, id):
         try:
-            return User.objects.get(pk=pk)
+            return User.objects.get(pk=id)
         except User.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk, format=None):
-        user = self.get_object(pk)
+    def get(self, request, id, format=None):
+        user = self.get_object(id)
         user = UserSerializer(user)
         return Response(user.data)
 
-    def put(self, request, pk, format=None):
-        user = self.get_object(pk)
+    def put(self, request, id, format=None):
+        user = self.get_object(id)
         serializer = UserSerializer(user, data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk, format=None):
-        user = self.get_object(pk)
+    def delete(self, request, id, format=None):
+        user = self.get_object(id)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
