@@ -35,4 +35,6 @@ urlpatterns = [
     url(r'^rest/bitstreams/(?P<id>[0-9]+)/retrieve$',views.get_bitstream_data),
     url(r'^rest/users/$', views.UserList.as_view()),
     url(r'^rest/users/(?P<id>[0-9]+)/$', views.UserDetail.as_view()),
+    url(r'^rest/groups/$', views.GroupList.as_view()),
+    url(r'^rest/groups/(?P<id>[0-9]+)/$', views.GroupDetail.as_view()),
 ]
