@@ -5,6 +5,7 @@ from rest_framework.views import  APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
 
 from dspace import Item,DSpace,Collection,Community,Bitstream
 from Conectate.settings import DSPACE_REST_ENDPOINT
@@ -243,7 +244,7 @@ class UserList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = UserSerializer(data=request.DATA)
+        serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -269,9 +270,10 @@ class UserDetail(APIView):
         user = UserSerializer(user)
         return Response(user.data)
 
+    @csrf_exempt
     def put(self, request, id, format=None):
         user = self.get_object(id)
-        serializer = UserSerializer(user, data=request.DATA)
+        serializer = UserSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
