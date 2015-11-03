@@ -37,4 +37,5 @@ urlpatterns = [
     url(r'^rest/users/(?P<id>[0-9]+)/$', views.UserDetail.as_view()),
     url(r'^rest/groups/$', views.GroupList.as_view()),
     url(r'^rest/groups/(?P<id>[0-9]+)/$', views.GroupDetail.as_view()),
+    url(r'^rest/docs/', include('rest_framework_swagger.urls')),
 ]

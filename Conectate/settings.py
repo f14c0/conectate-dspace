@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'corsheaders',
     'django_nose',
+    'rest_framework_swagger',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -137,3 +138,34 @@ NOSE_ARGS = [
     '--cover-inclusive',
     '--cover-html'
 ]
+
+
+#Swagger settings
+
+SWAGGER_SETTINGS = {
+    'exclude_namespaces': [],
+    'api_version': '0.5',
+    'api_path': '/rest/',
+    'enabled_methods': [
+        'get',
+        'post',
+        'put',
+        'patch',
+        'delete'
+    ],
+    'api_key': '',
+    'is_authenticated': False,
+    'is_superuser': False,
+    'permission_denied_handler': None,
+    'resource_access_handler': None,
+    #'base_path':'helloreverb.com/docs',
+    'info': {
+        'description': 'Conectate REST API documentation. '
+                       'Universidad de los Andes '
+                       'Main site avaliable at: '
+                       '<a href="conecta-te.herokuapp.com">'
+                       'Conecta-TE</a>',
+        'title': 'Conecta-TE REST API documentation',
+    },
+    'doc_expansion': 'none',
+}
