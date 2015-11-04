@@ -39,5 +39,5 @@ urlpatterns = [
     url(r'^rest/groups/$', views.GroupList.as_view()),
     url(r'^rest/groups/(?P<id>[0-9]+)/$', views.GroupDetail.as_view()),
     url(r'^rest/docs/', include('rest_framework_swagger.urls')),
-    url(r'^login/', drf_views.obtain_auth_token),
+    url(r'^login/', views.obtain_auth_token),
 ]
