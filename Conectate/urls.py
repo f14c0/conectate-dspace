@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from api import views
+from rest_framework.authtoken import views as drf_views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -38,4 +39,5 @@ urlpatterns = [
     url(r'^rest/groups/$', views.GroupList.as_view()),
     url(r'^rest/groups/(?P<id>[0-9]+)/$', views.GroupDetail.as_view()),
     url(r'^rest/docs/', include('rest_framework_swagger.urls')),
+    url(r'^login/', drf_views.obtain_auth_token),
 ]
