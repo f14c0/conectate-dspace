@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'corsheaders',
     'django_nose',
     'rest_framework_swagger',
+    'rest_framework.authtoken',
 )
 
 MIDDLEWARE_CLASSES = (
