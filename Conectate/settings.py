@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import sys
+from os import environ
 
 TESTING = sys.argv[1:2] == ['test']
 
@@ -97,8 +98,8 @@ else:
     import dj_database_url
     DATABASES={}
     DATABASES['default'] =  dj_database_url.config()
-
-DSPACE_REST_ENDPOINT = 'http://45.55.192.223:8443/rest'
+ 
+DSPACE_REST_ENDPOINT = environ.get('DSPACE_REST_ENDPOINT') 
 
 
 # Internationalization
@@ -127,9 +128,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
+FRONT_END_URL = environ.get('FRONT_END_URL') 
 #CORS WHITELIST
-CORS_ORIGIN_WHITELIST = ('conecta-te.herokuapp.com')
+CORS_ORIGIN_WHITELIST = ('FRONT_END_URL')
 
 #Test
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
